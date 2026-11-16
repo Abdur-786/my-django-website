@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}Carbon Calculator{% endblock %}
+
+{% block content %}
+    <h1>Calculate Your Carbon Footprint</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Calculate</button>
+    </form>
+
+    {% if result is not None %}
+        <h2>Your Carbon Footprint: {{ result }} units</h2>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block title %}Add Energy Usage{% endblock %}
+
+{% block content %}
+    <h1>Add Energy Usage</h1>
+    <form method="post" action="{% url 'energy_app:add_energy_usage' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Entry</button>
+    </form>
+    <a href="{% url 'energy_app:energy_tracking' %}">Back to Tracking</a>
+{% endblock %}

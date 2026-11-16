@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}Quizzes{% endblock %}
+
+{% block content %}
+    <h1>Quizzes</h1>
+    <ul>
+        {% for quiz in quizzes %}
+            <li>
+                <a href="{% url 'quiz:quiz_detail' quiz.id %}">{{ quiz.name }}</a>
+            </li>
+        {% empty %}
+            <li>No quizzes are available yet.</li>
+        {% endfor %}
+    </ul>
+    {% if user.is_authenticated %}
+        <p><a href="{% url 'quiz:quizzes' %}">View my quiz results</a></p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <h1>Your Profile</h1>
+
+    <div class="profile_card">
+        {% if profile_user.image %}
+            <img src="{{ profile_user.image.url }}" alt="Profile image" class="profile_image">
+        {% endif %}
+        <p><strong>Username:</strong> {{ profile_user.username }}</p>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Profile</button>
+    </form>
+
+    <h2>Enrolled Courses</h2>
+    {% for course in profile_user.enrolled_courses.all %}
+        <p><a href="{% url 'courses:course_detail' course.id %}">{{ course.title }}</a></p>
+    {% empty %}
+        <p>You are not enrolled in any courses.</p>
+    {% endfor %}
+{% endblock %}

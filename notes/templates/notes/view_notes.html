@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block title %}Notes{% endblock %}
+
+{% block content %}
+    <h2>My Notes</h2>
+
+    <a href="{% url 'notes:add_note' %}" class="notes_link">Add New Note</a>
+
+    <form method="get">
+        <label for="date">Filter by Date:</label>
+        <input type="date" name="date" value="{{ date_filter }}">
+        <button type="submit">Filter</button>
+    </form>
+
+    <div class="notes_area">
+        {% for note in notes %}
+            <div class="note_block">
+                <h3>{{ note.title }}</h3>
+                <h6>{{ note.date }}</h6>
+                <p>{{ note.note }}</p>
+                <form action="{% url 'notes:delete_note' note.id %}" method="post" style="display:inline;" onsubmit="return confirmDelete();">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        {% empty %}
+            <p>No notes found.</p>
+        {% endfor %}
+    </div>
+
+    <script>
+        function confirmDelete() {
+            return window.confirm('Are you sure you want to delete this note?');
+        }
+    </script>
+{% endblock %}

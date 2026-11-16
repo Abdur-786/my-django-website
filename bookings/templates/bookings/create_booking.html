@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block title %}Book {{ service.service_name }}{% endblock %}
+
+{% block content %}
+    <h1>Book a {{ service.service_name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Book</button>
+    </form>
+    <p><a href="{% url 'bookings:main_bookings' %}">Back to My Bookings</a></p>
+{% endblock %}

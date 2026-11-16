@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+    <h1>Your Bookings</h1>
+
+    {% for booking in bookings %}
+        <div class="booking_block">
+            <strong>Service:</strong> {{ booking.service_type }}<br>
+            <strong>Date:</strong> {{ booking.date }}<br>
+            <strong>Time:</strong> {{ booking.time }}<br>
+            <strong>Reason:</strong> {{ booking.reason }}<br>
+            {% if booking.address %}
+                <strong>Address:</strong> {{ booking.address }}<br>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>You do not have any bookings yet.</p>
+    {% endfor %}
+
+    <h2>Create a New Booking</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ service_form.as_p }}
+        <button type="submit">Continue</button>
+    </form>
+{% endblock %}

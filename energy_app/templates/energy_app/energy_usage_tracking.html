@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block title %}Energy Usage Tracking{% endblock %}
+
+{% block content %}
+    <h1>Energy Usage Tracking</h1>
+    <a href="{% url 'energy_app:add_energy_usage' %}">Add Energy Usage</a>
+
+    <h2>Total Energy Consumed: {{ total_consumption|floatformat:2 }} kWh</h2>
+    <h2>Average Energy Consumed: {{ average_consumption|floatformat:2 }} kWh</h2>
+
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>User</th>
+            <th>Energy Source</th>
+            <th>Energy Consumed (kWh)</th>
+        </tr>
+        {% for usage in usages %}
+            <tr>
+                <td>{{ usage.date }}</td>
+                <td>{{ usage.user_ID.username }}</td>
+                <td>{{ usage.source_ID.sourceType }}</td>
+                <td>{{ usage.energyConsumed }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No energy usage recorded yet.</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

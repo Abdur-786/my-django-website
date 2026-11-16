@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+    <h1>Courses</h1>
+    {% for course in courses %}
+        <div class="course_block">
+            {% if course.image %}
+                <img src="{{ course.image.url }}" alt="{{ course.title }}">
+            {% endif %}
+            <div class="course_description">
+                <h2><a href="{% url 'courses:course_detail' course.id %}">{{ course.title }}</a></h2>
+                <p>{{ course.description }}</p>
+                <h6>{{ course.date }}</h6>
+
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'courses:enroll_course' course.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Enroll</button>
+                    </form>
+                {% else %}
+                    <p><a href="{% url 'users:login' %}">Log in</a> to enroll.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p>No courses are available yet.</p>
+    {% endfor %}
+{% endblock %}

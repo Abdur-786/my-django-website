@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ quiz.name }} - Result{% endblock %}
+
+{% block content %}
+    <h1>{{ quiz.name }} - Result</h1>
+    <p>Result: {{ quiz_detail.result }}%</p>
+    <p>Reward: {{ quiz_detail.get_reward_display }}</p>
+    <a href="{% url 'quiz:quizzes' %}">Back to my quizzes</a>
+{% endblock %}

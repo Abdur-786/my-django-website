@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block title %}My Quiz Results{% endblock %}
+
+{% block content %}
+    <h1>My Quiz Results</h1>
+    <ul>
+        {% for row in quiz_rows %}
+            <li>
+                <a href="{% url 'quiz:quiz_form' row.quiz.id %}">{{ row.quiz.name }}</a>
+                {% if row.result %}
+                    - Result: {{ row.result.result }}%, Reward: {{ row.result.reward }}
+                {% else %}
+                    - Not taken
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No quizzes are available yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
